@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Practise</title>
+    <style href="style.css"></style>
+
+    <style>
+        .app-container{
+            font-family: 'Arial';
+        }
+        .btns-container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height:100vh;
+            gap:1rem;
+        }
+        .btns-container>*{
+            background: rgb(25,135,84);
+            border:none;
+            padding:0.5rem;
+            color:white;
+            height: 2rem;
+        }
+        
+    </style>
+</head>
+<body>
+
+        <div class="container"></div>
+
+    <script src="https://unpkg.com/supersimpledev/dayjs.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script type="text/babel">
+        function Btns(){
+            const [clickCount,setClickCount]=React.useState(0);
+            const [autoClickOn,setAutoClickOn] = React.useState(false);
+            const autoClickRef = React.useRef();
+
+            
+
+            React.useEffect(()=>{
+                if(autoClickOn===false){console.log("auto-click is off");return;}
+                console.log("auto-click is on")
+                
+                const timerId = setInterval(()=>{
+                    autoClickRef.current.click();
+                },1000)
+
+                return()=>{clearInterval(timerId);}
+            },[autoClickOn])
+
+            function autoUpdateClick(){
+               
+            }
+
+            return(
+                <div className="btns-container">
+                    <button
+                        onClick={()=>{setClickCount(clickCount+1)}}
+                        ref={autoClickRef}
+                    >
+                        Clicked {clickCount} times
+                    </button>
+
+                    <button
+                        onClick={()=>{setClickCount(0);setAutoClickOn(false)}}
+                    >
+                        Reset
+                    </button>
+
+                    <button
+                        onClick={()=>{setAutoClickOn(true)}}
+                    >
+                        Auto Click
+                    </button>
+                </div>
+            )
+        }
+
+        const App = ()=>{
+            return(
+                <div className="app-container">
+                   <Btns />
+
+                </div>
+            )
+        }
+
+        const container = document.querySelector(".container");
+        ReactDOM.createRoot(container).render(<App />)
+
+
+    </script>
+</body>
+</html>
