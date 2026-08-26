@@ -1,11 +1,13 @@
 import { Link } from "react-router";
 import Header from "../components/Header";
 import "./OrdersPage.css";
+import BuyAgainImg from "../assets/images/icons/buy-again.png";
+import OrdersIcon from "../assets/images/orders-favicon.png";
 
 const OrdersPage = () => {
   return (
     <>
-      <link rel="icon" type="image/svg+xml" href="orders-favicon.png" />
+      <link rel="icon" type="image/svg+xml" href={OrdersIcon} />
       <title>Orders</title>
 
       <Header />
@@ -47,10 +49,7 @@ const OrdersPage = () => {
                 </div>
                 <div className="product-quantity">Quantity: 1</div>
                 <button className="buy-again-button button-primary">
-                  <img
-                    className="buy-again-icon"
-                    src="images/icons/buy-again.png"
-                  />
+                  <img className="buy-again-icon" src={BuyAgainImg} />
                   <span className="buy-again-message">Add to Cart</span>
                 </button>
               </div>
@@ -76,10 +75,7 @@ const OrdersPage = () => {
                 </div>
                 <div className="product-quantity">Quantity: 2</div>
                 <button className="buy-again-button button-primary">
-                  <img
-                    className="buy-again-icon"
-                    src="images/icons/buy-again.png"
-                  />
+                  <img className="buy-again-icon" src={BuyAgainImg} />
                   <span className="buy-again-message">Add to Cart</span>
                 </button>
               </div>
@@ -125,10 +121,7 @@ const OrdersPage = () => {
                 </div>
                 <div className="product-quantity">Quantity: 2</div>
                 <button className="buy-again-button button-primary">
-                  <img
-                    className="buy-again-icon"
-                    src="images/icons/buy-again.png"
-                  />
+                  <img className="buy-again-icon" src={BuyAgainImg} />
                   <span className="buy-again-message">Add to Cart</span>
                 </button>
               </div>

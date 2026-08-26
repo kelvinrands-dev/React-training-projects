@@ -1,10 +1,11 @@
 import { CheckoutHeader } from "./CheckoutHeader";
 import "./CheckoutPage.css";
+import CheckoutIcon from "../../assets/images/cart-favicon.png";
 
 const CheckoutPage = () => {
   return (
     <>
-      <link rel="icon" type="image/svg+xml" href="cart-favicon.png" />
+      <link rel="icon" type="image/svg+xml" href={CheckoutIcon} />
       <title>Checkout</title>
 
       <CheckoutHeader />
