@@ -1,0 +1,8 @@
+.no-page-text {
+  display: flex;
+  font-size: 5rem;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
