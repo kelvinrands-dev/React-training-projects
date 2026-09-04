@@ -9,9 +9,16 @@ function HomePage({ cart }) {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    axios.get("/api/products").then((response) => {
+    const getHomeData = async () => {
+      const res = await axios.get("/api/products");
+      setProducts(res.data);
+    };
+
+    getHomeData();
+
+    /*axios.get("/api/products").then((response) => {
       setProducts(response.data);
-    });
+    });*/
   }, []);
 
   return (
