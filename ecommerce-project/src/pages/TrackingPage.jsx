@@ -37,6 +37,18 @@ export function TrackingPage({ cart }) {
     deliveryPercent = 100;
   }
 
+  //PROGRESSBAR STUFF
+  let isPreparing = null;
+  let isShipped = null;
+  let isDelivered = null;
+  if (deliveryPercent < 33) {
+    isPreparing = deliveryPercent;
+  } else if (deliveryPercent >= 33 && deliveryPercent < 100) {
+    isShipped = deliveryPercent;
+  } else if (deliveryPercent === 100) {
+    isDelivered = deliveryPercent;
+  }
+
   return (
     <>
       <link rel="icon" type="image/svg+xml" href={TrackingIcon} />
@@ -62,9 +74,19 @@ export function TrackingPage({ cart }) {
           <img className="product-image" src={productDetails.image} />
 
           <div className="progress-labels-container">
-            <div className="progress-label">Preparing</div>
-            <div className="progress-label current-status">Shipped</div>
-            <div className="progress-label">Delivered</div>
+            <div
+              className={`progress-label ${isPreparing && "current-status"}`}
+            >
+              Preparing
+            </div>
+            <div className={`progress-label ${isShipped && "current-status"}`}>
+              Shipped
+            </div>
+            <div
+              className={`progress-label ${isDelivered && "current-status"}`}
+            >
+              Delivered
+            </div>
           </div>
 
           <div className="progress-bar-container">
