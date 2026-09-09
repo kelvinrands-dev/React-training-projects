@@ -1,12 +1,41 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
 import { Link } from "react-router";
 import { useParams } from "react-router";
 import Header from "../components/Header";
 import "./TrackingPage.css";
 import TrackingIcon from "../assets/images/tracking-favicon.png";
+import dayjs from "dayjs";
 
 export function TrackingPage({ cart }) {
-  const params = useParams();
-  const { orderId, productId } = params;
+  const { orderId, productId } = useParams();
+
+  const [order, setOrder] = useState(null);
+
+  useEffect(() => {
+    const getOrder = async () => {
+      const res = await axios.get(`/api/orders/${orderId}?expand=products`);
+      setOrder(res.data);
+    };
+    getOrder();
+  }, [orderId]);
+
+  if (!order) return null;
+
+  const orderItem = order.products.find((prod) => {
+    return prod.productId === productId;
+  });
+
+  const productDetails = orderItem.product;
+
+  const totalDeliveryTimeMs =
+    orderItem.estimatedDeliveryTimeMs - order.orderTimeMs;
+
+  const timePassedMs = dayjs().valueOf() - order.orderTimeMs;
+  let deliveryPercent = (timePassedMs / totalDeliveryTimeMs) * 100;
+  if (deliveryPercent >= 100) {
+    deliveryPercent = 100;
+  }
 
   return (
     <>
@@ -20,18 +49,17 @@ export function TrackingPage({ cart }) {
             View all orders
           </Link>
 
-          <div className="delivery-date">Arriving on Monday, June 13</div>
-
-          <div className="product-info">
-            Black and Gray Athletic Cotton Socks - 6 Pairs
+          <div className="delivery-date">
+            {deliveryPercent >= 100 ? "Delivered On" : "Arriving On"}
+            {dayjs(orderItem.estimatedDeliveryTimeMs).format(" dddd, MMMM, D")}
+            th
           </div>
 
-          <div className="product-info">Quantity: 1</div>
+          <div className="product-info">{productDetails.name}</div>
 
-          <img
-            className="product-image"
-            src="images/products/athletic-cotton-socks-6-pairs.jpg"
-          />
+          <div className="product-info">Quantity: {orderItem.quantity}</div>
+
+          <img className="product-image" src={productDetails.image} />
 
           <div className="progress-labels-container">
             <div className="progress-label">Preparing</div>
@@ -40,7 +68,10 @@ export function TrackingPage({ cart }) {
           </div>
 
           <div className="progress-bar-container">
-            <div className="progress-bar"></div>
+            <div
+              className="progress-bar"
+              style={{ width: `${deliveryPercent}%` }}
+            ></div>
           </div>
         </div>
       </div>
