@@ -22,7 +22,7 @@ const CheckoutPage = ({ cart, loadCart }) => {
     };
 
     fetchCheckOutData();
-  }, []);
+  }, [cart]);
 
   return (
     <>
