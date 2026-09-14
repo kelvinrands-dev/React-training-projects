@@ -6,7 +6,7 @@ import "./OrdersPage.css";
 
 import OrdersIcon from "../../assets/images/orders-favicon.png";
 
-const OrdersPage = ({ cart }) => {
+const OrdersPage = ({ cart, loadCart }) => {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const OrdersPage = ({ cart }) => {
 
       <div className="orders-page">
         <div className="page-title">Your Orders</div>
-        <OrdersGrid orders={orders} />
+        <OrdersGrid orders={orders} loadCart={loadCart} />
       </div>
     </>
   );
