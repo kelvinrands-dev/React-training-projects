@@ -15,11 +15,9 @@ function HomePage({ cart, loadCart }) {
     };
 
     getHomeData();
-
-    /*axios.get("/api/products").then((response) => {
-      setProducts(response.data);
-    });*/
   }, []);
+
+  window.axios = axios;
 
   return (
     <>
