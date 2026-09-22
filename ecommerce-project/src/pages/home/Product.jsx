@@ -8,7 +8,7 @@ export function Product({ product, loadCart }) {
   const [isVisible, setIsVisible] = useState(false);
 
   const addToCart = async () => {
-    await axios.post("api/cart-items", {
+    await axios.post("/api/cart-items", {
       productId: product.id,
       quantity,
     });
@@ -75,7 +75,11 @@ export function Product({ product, loadCart }) {
         Added
       </div>
 
-      <button className="add-to-cart-button button-primary" onClick={addToCart}>
+      <button
+        className="add-to-cart-button button-primary"
+        onClick={addToCart}
+        data-testid="add-to-cart-btn"
+      >
         Add to Cart
       </button>
     </div>
