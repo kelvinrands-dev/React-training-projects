@@ -9,4 +9,10 @@ describe("for formatMoney function", () => {
   it("displays 2 decimals", () => {
     expect(formatMoney(2000)).toBe("$20.00");
   });
+  it("works with 0", () => {
+    expect(formatMoney(0)).toBe("$0.00");
+  });
+  it("works with negative numbers", () => {
+    expect(formatMoney(-100)).toBe("$-1.00");
+  });
 });
