@@ -4,7 +4,15 @@ import "./Header.css";
 import CartIconImg from "../assets/images/icons/cart-icon.png";
 import SearchIcon from "../assets/images/icons/search-icon.png";
 
-const Header = ({ cart }) => {
+type HeaderProps = {
+  cart: {
+    productId: string;
+    quantity: number;
+    deliveryOptionId: string;
+  }[];
+};
+
+const Header = ({ cart }: HeaderProps) => {
   const [searchParam] = useSearchParams();
   const search = searchParam.get("search");
   const searchVal = search || "";
