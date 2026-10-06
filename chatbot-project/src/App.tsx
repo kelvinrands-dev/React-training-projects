@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Chatbot } from "supersimpledev";
 import { ChatInput } from "./components/ChatInput";
-import { ChatMessage } from "./components/ChatMessage";
 import ChatMessages from "./components/ChatMessages";
 import { InitialDisplayText } from "./components/InitialDisplayText";
 import "./App.css";
@@ -9,7 +8,7 @@ import WebIcon from "./assets/robot.png";
 
 function App() {
   const [chatMessagesVar, setChatMessagesVar] = useState(
-    JSON.parse(localStorage.getItem("messages")) || [],
+    JSON.parse(localStorage.getItem("messages")!) || [],
   );
   const [numOfMessages, setNumOfMessages] = useState(
     Number(localStorage.getItem("messagesNum")) || 0,
