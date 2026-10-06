@@ -1,11 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Chatbot } from "supersimpledev";
 import SpinnerImage from "../assets/loading-spinner.gif";
 import "./ChatInput.css";
 
-function ChatInput({ chatMessagesVar, setChatMessagesVar }) {
+function ChatInput({
+  chatMessagesVar,
+  setChatMessagesVar,
+  numOfMessages,
+  setNumOfMessages,
+}) {
   const [inputText, setInputText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    localStorage.setItem("messagesNum", numOfMessages);
+  }, [numOfMessages]);
 
   const saveInputText = (e) => {
     setInputText(e.target.value);
@@ -54,6 +63,11 @@ function ChatInput({ chatMessagesVar, setChatMessagesVar }) {
     ]);
 
     setIsLoading(false);
+
+    setNumOfMessages(numOfMessages + 1);
+
+    //console.log(localStorage.getItem("messagesNum"));
+    //console.log(`Num of messages after send is ${numOfMessages}`);
   }
 
   function keyDown(e) {
@@ -67,6 +81,8 @@ function ChatInput({ chatMessagesVar, setChatMessagesVar }) {
 
   function clearMessage() {
     setChatMessagesVar([]);
+    setNumOfMessages(0);
+    localStorage.removeItem("messagesNum");
   }
 
   return (
