@@ -2,7 +2,15 @@ import { useAutoScroll } from "../hooks/useAutoScroll";
 import { ChatMessage } from "./ChatMessage";
 import "./ChatMessages.css";
 
-function ChatMessages({ chatMessagesVar }) {
+type ChatMessagesProps = {
+  chatMessagesVar: {
+    id: string;
+    message: string;
+    sender: string;
+  }[];
+};
+
+function ChatMessages({ chatMessagesVar }: ChatMessagesProps) {
   const chatMessagesRef = useAutoScroll(chatMessagesVar);
 
   return (

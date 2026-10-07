@@ -1,22 +1,36 @@
 import { useState, useEffect } from "react";
+import type { ReactNode } from "react";
 import { Chatbot } from "supersimpledev";
 import SpinnerImage from "../assets/loading-spinner.gif";
 import "./ChatInput.css";
+
+type Chat = {
+  id: string;
+  message: ReactNode;
+  sender: string;
+};
+
+type ChatInputProps = {
+  chatMessagesVar: Chat[];
+  setChatMessagesVar: (chatMessagesVar: Chat[]) => void;
+  numOfMessages: number;
+  setNumOfMessages: (numOfMessages: number) => void;
+};
 
 function ChatInput({
   chatMessagesVar,
   setChatMessagesVar,
   numOfMessages,
   setNumOfMessages,
-}) {
+}: ChatInputProps) {
   const [inputText, setInputText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    localStorage.setItem("messagesNum", numOfMessages);
+    localStorage.setItem("messagesNum", String(numOfMessages));
   }, [numOfMessages]);
 
-  const saveInputText = (e) => {
+  const saveInputText = (e: { target: { value: string } }) => {
     setInputText(e.target.value);
   };
 
@@ -65,12 +79,9 @@ function ChatInput({
     setIsLoading(false);
 
     setNumOfMessages(numOfMessages + 1);
-
-    //console.log(localStorage.getItem("messagesNum"));
-    //console.log(`Num of messages after send is ${numOfMessages}`);
   }
 
-  function keyDown(e) {
+  function keyDown(e: { key: string }) {
     if (e.key === "Enter") {
       sendMessage();
     }
@@ -89,7 +100,7 @@ function ChatInput({
     <div className="chat-input-container">
       <input
         placeholder="Send a message to Chatbot"
-        size="30"
+        size={30}
         onChange={saveInputText}
         onKeyDown={keyDown}
         value={inputText}

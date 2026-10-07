@@ -13,9 +13,6 @@ function App() {
   const [numOfMessages, setNumOfMessages] = useState(
     Number(localStorage.getItem("messagesNum")) || 0,
   );
-  console.log(
-    `Num of messages being recieved rn in App.jsx is ${numOfMessages}`,
-  );
 
   useEffect(() => {
     Chatbot.addResponses({
